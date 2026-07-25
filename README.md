@@ -7,7 +7,7 @@ Tableau de bord interactif pour l'analyse de la qualité de l'air (AQI) avec **M
 ```
 ┌─────────────┐     ┌──────────────┐     ┌──────────────┐
 │  Browser    │────▶│   Metabase   │────▶│  PostgreSQL  │
-│ localhost:3000│     │  (BI Tool)   │     │  (Data WH)   │
+│ localhost:3001│     │  (BI Tool)   │     │  (Data WH)   │
 └─────────────┘     └──────────────┘     └──────────────┘
 ```
 
@@ -34,12 +34,12 @@ bash scripts/init-db.sh
 
 | Service    | URL                        |
 |------------|----------------------------|
-| Metabase   | http://localhost:3000      |
+| Metabase   | http://localhost:3001      |
 | PostgreSQL | localhost:5432             |
 
 ## Connexion Metabase → PostgreSQL
 
-1. Ouvrir http://localhost:3000
+1. Ouvrir http://localhost:3001
 2. Créer le compte admin
 3. **Ajouter une base de données** :
    - Type : PostgreSQL

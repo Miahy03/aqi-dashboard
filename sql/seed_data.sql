@@ -1,6 +1,3 @@
--- Données AQI générées – 33340 enregistrements
--- Période : 2022-01-01 → 2026-07-25
-
 INSERT INTO aqi_measurements
     (city, country, latitude, longitude, date, aqi,
      pm25, pm10, no2, so2, co, o3, category)

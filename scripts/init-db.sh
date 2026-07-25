@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# ==========================================================================
-# init-db.sh – Initialisation de la base AQI pour Metabase
-# Usage : bash scripts/init-db.sh
-# ==========================================================================
 set -euo pipefail
 
 DB_NAME="aqi_warehouse"
@@ -17,7 +13,6 @@ echo "   Hôte : $DB_HOST:$DB_PORT"
 echo "   Base  : $DB_NAME"
 echo ""
 
-# Attendre que PostgreSQL soit prêt
 echo "⏳ Attente de PostgreSQL..."
 until PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1" > /dev/null 2>&1; do
     sleep 2
@@ -25,19 +20,16 @@ done
 echo "✅ PostgreSQL prêt."
 echo ""
 
-# Appliquer le schéma
 echo "📦 Création du schéma..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -f "$SCRIPT_DIR/sql/schema.sql"
 echo "✅ Schéma créé."
 echo ""
 
-# Importer les données
 echo "📊 Import des données..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -f "$SCRIPT_DIR/sql/seed_data.sql"
 echo "✅ Données importées."
 echo ""
 
-# Vérification
 echo "🔍 Vérification..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" <<SQL
 SELECT
@@ -51,7 +43,7 @@ SQL
 
 echo ""
 echo "🎯 Initialisation terminée avec succès !"
-echo "   Connecte-toi à Metabase sur http://localhost:3000"
+echo "   Connecte-toi à Metabase sur http://localhost:3001"
 echo "   Configure la base de données avec :"
 echo "     Host : postgres  (ou localhost si hors Docker)"
 echo "     Port : 5432"

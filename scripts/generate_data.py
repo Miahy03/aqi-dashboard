@@ -1,20 +1,10 @@
 #!/usr/bin/env python3
-"""
-Générateur de données AQI réalistes pour le projet Bloc 2.
-Produit un fichier SQL d'insertion avec ~22 000 enregistrements.
-"""
-
-import csv
-import io
 import math
 import random
 from datetime import date, timedelta
 
 random.seed(42)
 
-# ── Villes avec coordonnées et profils de pollution ──────────────────────
-# (city, country, lat, lon, base_aqi, amplitude, noise)
-# amplitude = variation saisonnière; noise = bruit aléatoire
 CITIES = [
     ("Delhi",          "India",       28.61,  77.23,  180, 60, 25),
     ("Mumbai",         "India",       19.08,  72.88,  130, 45, 20),
@@ -53,10 +43,7 @@ def clamp(v, lo, hi):
     return max(lo, min(hi, v))
 
 def generate_row(d, city, country, lat, lon, base, amp, noise):
-    # Saisonnalité : hiver (mois 1-2, 12) → +, été (6-8) → - pour PM
-    # Pour O3 c'est l'inverse
     month = d.month
-    # Facteur saisonnier: cos( (month-1) * pi/6 ) → -1 en jan, +1 en jul
     season = -math.cos((month - 1) * math.pi / 6)
 
     aqi_raw = base + amp * season + random.gauss(0, noise)
@@ -95,9 +82,6 @@ def main():
     random.shuffle(rows)
 
     with open("/home/miahy/Donnee2-perso/sql/seed_data.sql", "w") as f:
-        f.write("-- Données AQI générées – {} enregistrements\n".format(len(rows)))
-        f.write("-- Période : {} → {}\n\n".format(START_DATE, END_DATE))
-
         batch_size = 500
         for i in range(0, len(rows), batch_size):
             batch = rows[i:i+batch_size]
