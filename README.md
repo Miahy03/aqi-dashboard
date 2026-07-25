@@ -17,6 +17,14 @@ Tableau de bord interactif pour l'analyse de la qualité de l'air (AQI) avec **M
 - Python 3 (pour la génération des données)
 - Navigateur web
 
+## Configuration
+
+Copier le fichier d'environnement :
+
+```bash
+cp .env.example .env
+```
+
 ## Déploiement rapide
 
 ```bash
@@ -86,6 +94,7 @@ bash scripts/init-db.sh
 │   ├── schema.sql             # Définition de la table
 │   ├── seed_data.sql          # Données générées (33 340 lignes, 2022-2026)
 │   └── queries.sql            # Toutes les requêtes SQL
+├── .env                       # Variables d'environnement (ne pas commiter)
 ├── scripts/
 │   ├── generate_data.py       # Générateur de données
 │   └── init-db.sh             # Script d'initialisation

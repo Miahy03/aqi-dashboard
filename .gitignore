@@ -21,3 +21,6 @@ pgdata/
 
 # Logs
 *.log
+
+# Credentials
+.env
