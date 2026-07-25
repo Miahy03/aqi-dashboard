@@ -8,29 +8,29 @@ DB_HOST="${DB_HOST:-localhost}"
 DB_PORT="${DB_PORT:-5433}"
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-echo "🚀 Initialisation du Data Warehouse AQI..."
+echo "Initialisation du Data Warehouse AQI..."
 echo "   Hôte : $DB_HOST:$DB_PORT"
 echo "   Base  : $DB_NAME"
 echo ""
 
-echo "⏳ Attente de PostgreSQL..."
+echo "Attente de PostgreSQL..."
 until PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -c "SELECT 1" > /dev/null 2>&1; do
     sleep 2
 done
-echo "✅ PostgreSQL prêt."
+echo "PostgreSQL prêt."
 echo ""
 
-echo "📦 Création du schéma..."
+echo "Création du schéma..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -f "$SCRIPT_DIR/sql/schema.sql"
-echo "✅ Schéma créé."
+echo "Schéma créé."
 echo ""
 
-echo "📊 Import des données..."
+echo "Import des données..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -f "$SCRIPT_DIR/sql/seed_data.sql"
-echo "✅ Données importées."
+echo "Données importées."
 echo ""
 
-echo "🔍 Vérification..."
+echo "Vérification..."
 PGPASSWORD="$DB_PASS" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" <<SQL
 SELECT
     COUNT(*)           AS total_enregistrements,
@@ -42,7 +42,7 @@ FROM aqi_measurements;
 SQL
 
 echo ""
-echo "🎯 Initialisation terminée avec succès !"
+echo "Initialisation terminée avec succès !"
 echo "   Connecte-toi à Metabase sur http://localhost:3001"
 echo "   Configure la base de données avec :"
 echo "     Host : postgres  (ou localhost si hors Docker)"

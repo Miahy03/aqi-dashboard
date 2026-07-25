@@ -97,7 +97,7 @@ def main():
             f.write(",\n".join(vals))
             f.write(";\n\n")
 
-    print("✅ Fichier généré : sql/seed_data.sql ({} lignes, {} enregistrements)".format(
+    print("Fichier généré : sql/seed_data.sql ({} lignes, {} enregistrements)".format(
         len(rows), len(rows)
     ))
 
