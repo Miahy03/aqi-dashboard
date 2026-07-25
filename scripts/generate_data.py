@@ -39,7 +39,7 @@ CITIES = [
 ]
 
 START_DATE = date(2022, 1, 1)
-END_DATE   = date(2024, 12, 31)
+END_DATE   = date(2026, 7, 25)
 
 def aqi_category(aqi_val: int) -> str:
     if aqi_val <= 50:       return "Good"

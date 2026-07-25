@@ -84,7 +84,7 @@ bash scripts/init-db.sh
 ├── docker-compose.yml         # Infrastructure Docker
 ├── sql/
 │   ├── schema.sql             # Définition de la table
-│   ├── seed_data.sql          # Données générées (21 920 lignes)
+│   ├── seed_data.sql          # Données générées (33 340 lignes, 2022-2026)
 │   └── queries.sql            # Toutes les requêtes SQL
 ├── scripts/
 │   ├── generate_data.py       # Générateur de données

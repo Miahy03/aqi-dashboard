@@ -19,7 +19,7 @@
 
 ## 2. Tendances observées
 
-- **Tendance générale stable** : L'AQI moyen global reste relativement constant sur les 3 ans (2022-2024), avec des variations saisonnières marquées.
+- **Tendance générale stable** : L'AQI moyen global reste relativement constant sur la période (2022-2026), avec des variations saisonnières marquées.
 - **Légère amélioration** dans certaines villes (Beijing, Los Angeles) grâce aux politiques environnementales.
 - **Aggravation saisonnière** dans les mégapoles d'Asie du Sud en hiver.
 
@@ -78,4 +78,4 @@
 ---
 
 *Document produit dans le cadre du projet AQI – Bloc 2 : Visualisation de données.*
-*Données : mesures quotidiennes (2022–2024) pour 20 villes mondiales.*
+*Données : mesures quotidiennes (2022–2026) pour 20 villes mondiales.*
