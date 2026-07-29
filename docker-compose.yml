@@ -4,6 +4,8 @@ services:
     container_name: aqi-metabase
     ports:
       - "3001:3000"
+    env_file:
+      - .env
     environment:
       MB_SITE_NAME: "AQI Global Dashboard"
       MB_SITE_URL: http://localhost:3001
