@@ -3,18 +3,25 @@ import os
 import subprocess
 import sys
 
+HOST = "ep-cold-wave-axo1eq9a-pooler.c-4.us-east-2.aws.neon.tech"
+PORT = "5432"
+USER = "neondb_owner"
+DB = "neondb"
+PASS = "npg_Mn1fr2lLOiyV"
+
 def run_sql(query):
     cmd = [
         "psql",
-        "-h", "localhost",
-        "-p", "5433",
-        "-U", "aqi_user",
-        "-d", "aqi_warehouse",
+        "-h", HOST,
+        "-p", PORT,
+        "-U", USER,
+        "-d", DB,
         "-t", "-A",
         "-c", query
     ]
     env = os.environ.copy()
-    env["PGPASSWORD"] = "aqi_pass_2024"
+    env["PGPASSWORD"] = PASS
+    env["PGSSLMODE"] = "require"
     result = subprocess.run(cmd, capture_output=True, text=True, env=env)
     return result.stdout.strip()
 

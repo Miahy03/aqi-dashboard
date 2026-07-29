@@ -1,4 +1,4 @@
-.PHONY: setup up down init generate logs psql metabase validate
+.PHONY: setup up down init generate logs metabase validate
 
 setup:
 	cp -n .env.example .env 2>/dev/null || true
@@ -20,9 +20,6 @@ validate:
 
 logs:
 	docker compose logs -f
-
-psql:
-	docker compose exec postgres psql -U aqi_user -d aqi_warehouse
 
 metabase:
 	open http://localhost:3001

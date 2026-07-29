@@ -1,3 +1,5 @@
+SET search_path TO public;
+
 CREATE TABLE IF NOT EXISTS aqi_measurements (
     id          SERIAL PRIMARY KEY,
     city        VARCHAR(100)   NOT NULL,
