@@ -26,5 +26,6 @@ pgdata/
 .env
 
 # API automation scripts (contain session tokens)
-scripts/create_dashboard.py
-scripts/create_metabase_cards.py
+scripts/*_dashboard*.py
+scripts/*_design*.py
+scripts/*_metabase*.py
