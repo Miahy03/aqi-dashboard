@@ -108,8 +108,7 @@ docker compose up -d
 ├── scripts/
 │   ├── generate_data.py        # Générateur de données
 │   ├── init-db.sh              # Script d'initialisation Neon
-│   ├── validate_data.py        # Validation (8 vérifications)
-│   └── deploy_setup.py         # Setup automatisé Metabase
+│   └── validate_data.py        # Validation (8 vérifications)
 ├── docs/
 │   └── analyse.md              # Analyse et recommandations
 ├── .env                        # Identifiants (ne pas commiter)
@@ -126,10 +125,6 @@ ngrok http 3001
 ```
 
 L'URL change à chaque redémarrage sur le plan gratuit.
-
-```bash
-python3 scripts/deploy_setup.py
-```
 
 ## Licence
 
