@@ -61,39 +61,49 @@ docker compose up -d
 - **Mot de passe :** `miahy171008`
 - La base Neon est préconfigurée (table `aqi_measurements` avec 33 340 lignes, 20 villes, 2022-2026)
 
-## Dashboard (12 cartes)
+## Dashboard (16 cartes)
 
 ```
-┌──────┬──────┬──────┬──────┐
-│AQI   │AQI   │Mesur-│Villes│  KPIs
-│Moyen │Max   │es    │      │
-├──────────┬────────────┤
-│Tendance  │Qualité     │  Graphiques
-│AQI       │Air         │
-├──────────┼────────────┤
-│AQI par   │Polluants   │
-│Ville     │            │
-├──────────────────────┤
-│     Carte AQI        │  Pleine largeur
-├──────┬──────┬────────┤
-│Filtre│Filtre│Tableau │  Bas
-│Ville │Catég.│Détail  │
-└──────┴──────┴────────┘
+┌────┬────┬────┬────┬────┬────┐
+│Moyen│Max│Min│Mesures│Villes│Polluant│  ← 6 KPIs
+├──────────┬─────────────┤
+│ Tendance │ Top 10      │  Graphiques
+├──────────┼─────────────┤
+│AQI/Ville │ Qualité Air │
+├──────────┼─────────────┤
+│ Conc.    │ Évolution   │
+│ polluants│ polluants   │
+├──────────┼─────────────┤
+│Polluants │ Profil      │
+│ annuels  │ radar       │
+├───────────────────────┤
+│      Carte AQI        │  Pleine largeur
+├───────────────────────┤
+│    Tableau détail     │
+└───────────────────────┘
 ```
 
-### KPIs
-- AQI moyen, AQI maximum, Nombre de mesures, Nombre de villes
+### KPIs (6)
+- AQI moyen, AQI maximum, AQI minimum, Nombre de mesures, Nombre de villes, Polluant dominant
 
-### Graphiques
+### Graphiques (9)
 1. Évolution temporelle de l'AQI (line chart)
-2. AQI par ville (bar chart)
-3. Répartition des catégories AQI (pie chart)
-4. Comparaison des polluants (bar chart empilé)
-5. Carte géographique des villes (pin map)
+2. Top 10 des villes les plus polluées (bar chart)
+3. AQI moyen par ville (bar chart)
+4. Répartition des catégories AQI (pie chart)
+5. Comparaison des polluants (bar chart empilé)
+6. **Concentration moyenne des polluants** (bar chart)
+7. **Évolution des polluants dans le temps** (area chart empilé, 6 séries)
+8. **Profil radar des polluants** (barres horizontales — équivalent radar, Metabase n'a pas de radar natif)
+9. Carte géographique des villes (pin map)
 
-### Filtres & Tableau
-- Filtre Ville, Filtre Catégorie
-- Tableau détail AQI par ville et année
+### Tableau
+- Tableau détail : AQI moyen par ville et par année
+
+### Filtres interactifs (5)
+- **Ville**, **Pays**, **Catégorie**, **Du** (date début), **Au** (date fin)
+- Appliqués sur toutes les cartes via variables SQL optionnelles
+- Les filtres Ville / Pays / Catégorie proposent des suggestions (liste des valeurs DISTINCT)
 
 ## Palette de couleurs AQI
 
@@ -114,7 +124,7 @@ docker compose up -d
 ├── sql/
 │   ├── schema.sql              # Définition de la table
 │   ├── seed_data.sql           # Données générées (33 340 lignes)
-│   └── queries.sql             # 12 requêtes SQL du dashboard
+│   └── queries.sql           # 13 requêtes SQL du dashboard
 ├── scripts/
 │   ├── generate_data.py        # Générateur de données
 │   ├── init-db.sh              # Script d'initialisation Neon
