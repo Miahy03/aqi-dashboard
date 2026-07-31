@@ -1,4 +1,4 @@
-.PHONY: setup up down init generate logs metabase validate
+.PHONY: setup up down analyse logs metabase
 
 setup:
 	cp -n .env.example .env 2>/dev/null || true
@@ -9,14 +9,8 @@ up:
 down:
 	docker compose down
 
-init:
-	bash scripts/init-db.sh
-
-generate:
-	python3 scripts/generate_data.py
-
-validate:
-	python3 scripts/validate_data.py
+analyse:
+	python3 scripts/analyse.py
 
 logs:
 	docker compose logs -f

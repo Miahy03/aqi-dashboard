@@ -1,68 +1,71 @@
 # Analyse du Dashboard AQI – Bloc 2
 
-## 1. Villes les plus polluees
+*Données : data warehouse Bloc 1 (schéma en étoile Neon), 46 426 mesures horaires, 5 villes, 2025-07 → 2026-07.*
 
-Les villes d'Asie du Sud (Bangladesh, Pakistan, Inde) dominent le classement. La pollution y est structurelle en raison de l'industrialisation rapide, de la densite de population, et des conditions geographiques (bassins montagneux qui piegent les polluants).
+## 1. Villes
 
-## 2. Tendances observees
+| Ville | Pays | AQI moyen |
+|-------|------|-----------|
+| Tokyo | JP | 45.2 |
+| Paris | FR | 35.4 |
+| London | GB | 35.0 |
+| New York | US | 34.7 |
+| Antananarivo | MG | 30.7 |
 
-- **Tendance generale stable** : L'AQI moyen global reste relativement constant sur la periode (2022-2026), avec des variations saisonnieres marquees.
-- **Legere amelioration** dans certaines villes (Beijing, Los Angeles) grace aux politiques environnementales.
-- **Aggravation saisonniere** dans les megalopoles d'Asie du Sud en hiver.
+**Tokyo est la ville la plus polluée** du jeu de données ; **Antananarivo la moins polluée**. Les écarts entre villes restent modérés (30.7 – 45.2).
 
-## 3. Periodes critiques
+## 2. Tendances observées
 
-| Periode | Constat | Cause |
-|---------|---------|-------|
-| Novembre – Fevrier | Pic d'AQI maximal dans l'hemisphere nord | Inversions thermiques, chauffage domestique, brulage agricole post-recolte |
-| Juin – Aout | Pic d'ozone (O3) | Rayonnement solaire intense + NOx vers ozone tropospherique |
-| Janvier | Mois le plus pollue en Asie du Sud | Conditions meteo stables, smog hivernal |
+- **AQI globalement bon** : l'AQI moyen global est de ~37.6, la majorité des mesures (84 %) tombent dans la catégorie **Good**.
+- Les pics d'AQI interviennent surtout en **hiver** (décembre-février) dans l'hémisphère nord (Tokyo, Paris, London).
+- Peu de tendance forte à la hausse ou baisse sur la période d'un an.
+
+## 3. Périodes critiques
+
+| Période | Constat |
+|---------|---------|
+| Décembre – Février | AQI maximal, surtout à Tokyo et London |
+| Heures de pointe (8h–12h) | AQI légèrement plus élevé, lié au trafic matinal |
+
+La granularité **horaire** du warehouse permet d'observer un profil journalier : la pollution augmente le matin, atteint un plateau en journée, et diminue la nuit.
 
 ## 4. Principaux polluants
 
-| Polluant | Contribution relative | Source principale |
-|----------|----------------------|------------------|
-| **PM2.5** | Tres elevee | Combustion (vehicules, chauffage, industries) |
-| **PM10** | Elevee | Poussieres, chantiers, routes non goudronnees |
-| **NO2** | Moderee | Trafic routier, centrales thermiques |
-| **O3** | Moderee (saison chaude) | Reaction photochimique (NOx + COV) |
-| **SO2** | Faible a moderee | Centrales au charbon, industries lourdes |
-| **CO** | Faible | Combustion incomplete |
+| Polluant | Concentration moyenne |
+|----------|----------------------|
+| **CO** | ~182 µg/m³ |
+| **O3** | ~79 µg/m³ |
+| **PM10** | ~19 µg/m³ |
+| **PM2.5** | ~10 µg/m³ |
+| NO2 | ~5 µg/m³ |
+| SO2 | ~2 µg/m³ |
 
-**Conclusion :** Les particules fines (PM2.5 et PM10) sont de loin les polluants les plus problematiques. Elles representent le risque sanitaire majeur et sont directement liees aux activites de combustion.
+**Conclusion :** Le monoxyde de carbone (CO) et l'ozone (O3) dominent en concentration ; les particules fines (PM2.5/PM10) restent le risque sanitaire le plus suivi.
 
 ## 5. Conclusions
 
-1. **La pollution de l'air est un probleme majeur en Asie du Sud** – Dhaka, Lahore, Delhi, et Karachi depassent regulierement le seuil "Unhealthy".
-2. **Les saisons froides sont les plus critiques** – Les inversions thermiques emprisonnent la pollution pres du sol.
-3. **Les PM2.5 sont le polluant dominant** – Elles penetrent profondement dans les poumons et causent des problemes cardiovasculaires et respiratoires.
-4. **Les megalopoles des pays en developpement sont les plus exposees** – Croissance rapide sans regulation environnementale suffisante.
-5. **L'ozone (O3) devient un probleme croissant en ete** – Notamment dans les villes a fort trafic.
+1. **La qualité de l'air est globalement bonne** sur le jeu de données (84 % de mesures "Good").
+2. **Tokyo concentre la pollution** : c'est la ville avec l'AQI moyen le plus élevé.
+3. **La saisonnalité hivernale** marque les pics dans l'hémisphère nord.
+4. **La granularité horaire** permet de visualiser l'effet du trafic sur l'AQI quotidien.
+5. **Le CO et l'O3** dominent en concentration ; les PM restent le principal enjeu sanitaire.
 
 ## 6. Recommandations
 
-### Pour les villes les plus polluees (Dhaka, Lahore, Delhi, Karachi)
-- Mettre en place des **zones a faibles emissions** (Low Emission Zones).
-- Investir dans les **transports publics electriques** et les **veloroutes**.
-- Controler les **brulages agricoles** post-recolte (alternative : enfouissement des residus).
-- Subventionner le **chauffage propre** (pompes a chaleur, gaz) en remplacement du bois/charbon.
+### Pour les villes
+- Renforcer le **contrôle des émissions de trafic** (zones à faibles émissions), surtout à Tokyo.
+- Suivre l'**ozone en été** (formation photochimique) et le **CO en hiver**.
 
-### Pour les periodes critiques
-- Activer des **alertes AQI** en temps reel pour les populations sensibles.
-- Distribuer des **masques antipollution** lors des pics hivernaux.
-- Fermeture temporaire des chantiers et restriction de la circulation lors des episodes de pic.
+### Pour l'analyse
+- Étendre le jeu de données à **plus de villes et plusieurs années** pour des tendances fiables.
+- Croiser l'AQI avec la **météo** (température, vent, précipitations).
+- Utiliser la dimension **horaire** pour alerter aux heures de pointe.
 
-### Pour l'analyse des polluants
-- Renforcer le **reseau de capteurs** – augmenter la densite des stations de mesure.
-- Publier des **bulletins quotidiens** par quartier (pas seulement par ville).
-- Developper des **modeles predictifs** d'AQI pour anticiper les pics.
-
-### Pour les decideurs
-- Aligner les politiques sur les **seuils de l'OMS** (plus stricts que les normes nationales actuelles).
-- Integrer l'AQI dans les **indicateurs de performance** des municipalites.
-- Cooperation regionale – la pollution ne s'arrete pas aux frontieres (ex : brumes transfrontalieres).
+### Pour les décideurs
+- Aligner les seuils sur les **normes OMS** (plus strictes).
+- Publier des **bulletins par heure** pour les populations sensibles.
 
 ---
 
-*Document produit dans le cadre du projet AQI – Bloc 2 : Visualisation de donnees.*
-*Donnees : mesures quotidiennes (2022-2026) pour 20 villes mondiales.*
+*Document produit dans le cadre du projet AQI – Bloc 2 : Visualisation de données.*
+*Données : data warehouse Bloc 1 (Neon, schéma en étoile), 5 villes, mesures horaires 2025-2026.*
