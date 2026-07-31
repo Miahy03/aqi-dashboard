@@ -51,17 +51,10 @@ docker compose up -d
 
 | Service | URL |
 |---------|-----|
-| Metabase | http://localhost:3001 |
-| Dashboard | http://localhost:3001/dashboard/2 |
-| **ngrok (public)** | https://crunchy-graded-albatross.ngrok-free.dev |
+| **ngrok (public)** | https://crunchy-graded-albatross.ngrok-free.dev/dashboard/2|
 
-## Connexion Metabase
 
-- **Email :** `hei.miahy.2@gmail.com`
-- **Mot de passe :** `miahy171008`
-- La base Neon est préconfigurée (table `aqi_measurements` avec 33 340 lignes, 20 villes, 2022-2026)
-
-## Dashboard (16 cartes)
+## Dashboard (13 cartes)
 
 ```
 ┌────┬────┬────┬────┬────┬────┐
@@ -71,39 +64,26 @@ docker compose up -d
 ├──────────┼─────────────┤
 │AQI/Ville │ Qualité Air │
 ├──────────┼─────────────┤
-│ Conc.    │ Évolution   │
-│ polluants│ polluants   │
-├──────────┼─────────────┤
-│Polluants │ Profil      │
-│ annuels  │ radar       │
+│Polluants │ Tableau     │
 ├───────────────────────┤
 │      Carte AQI        │  Pleine largeur
-├───────────────────────┤
-│    Tableau détail     │
 └───────────────────────┘
 ```
 
 ### KPIs (6)
 - AQI moyen, AQI maximum, AQI minimum, Nombre de mesures, Nombre de villes, Polluant dominant
 
-### Graphiques (9)
+### Graphiques (6)
 1. Évolution temporelle de l'AQI (line chart)
 2. Top 10 des villes les plus polluées (bar chart)
 3. AQI moyen par ville (bar chart)
 4. Répartition des catégories AQI (pie chart)
 5. Comparaison des polluants (bar chart empilé)
-6. **Concentration moyenne des polluants** (bar chart)
-7. **Évolution des polluants dans le temps** (area chart empilé, 6 séries)
-8. **Profil radar des polluants** (barres horizontales — équivalent radar, Metabase n'a pas de radar natif)
-9. Carte géographique des villes (pin map)
-
-### Tableau
-- Tableau détail : AQI moyen par ville et par année
+6. Carte géographique des villes (pin map)
 
 ### Filtres interactifs (5)
 - **Ville**, **Pays**, **Catégorie**, **Du** (date début), **Au** (date fin)
 - Appliqués sur toutes les cartes via variables SQL optionnelles
-- Les filtres Ville / Pays / Catégorie proposent des suggestions (liste des valeurs DISTINCT)
 
 ## Palette de couleurs AQI
 
@@ -147,14 +127,10 @@ ngrok http 3001
 
 L'URL change à chaque redémarrage sur le plan gratuit.
 
-### Render / Railway
-
-Le `Dockerfile` permet le déploiement sur toute plateforme Docker. Configurer les 15 variables d'env (cf. `.env.example`). Lancer ensuite :
-
 ```bash
 python3 scripts/deploy_setup.py
 ```
 
 ## Licence
 
-Projet scolaire – Bloc 2 : Visualisation de données.
+Projet scolaire : Visualisation de données.
