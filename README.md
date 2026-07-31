@@ -35,6 +35,7 @@ cp .env.example .env
 
 ```bash
 # 1. Générer les données (33 340 enregistrements)
+#    → sql/seed_data.sql ET data/aqi_measurements.csv
 python3 scripts/generate_data.py
 
 # 2. Initialiser la base Neon
@@ -43,7 +44,11 @@ bash scripts/init-db.sh
 # 3. Valider les données
 python3 scripts/validate_data.py
 
-# 4. Lancer Metabase
+# 4. Analyse hors Metabase (pandas + matplotlib, optionnel)
+pip install pandas matplotlib
+python3 scripts/analyse.py
+
+# 5. Lancer Metabase
 docker compose up -d
 ```
 
@@ -101,16 +106,20 @@ docker compose up -d
 .
 ├── Dockerfile                  # Image Metabase pour déploiement
 ├── docker-compose.yml          # Metabase (Docker)
+├── data/
+│   └── aqi_measurements.csv    # Données exportées (33 340 lignes, source CSV)
 ├── sql/
 │   ├── schema.sql              # Définition de la table
 │   ├── seed_data.sql           # Données générées (33 340 lignes)
 │   └── queries.sql           # 13 requêtes SQL du dashboard
 ├── scripts/
-│   ├── generate_data.py        # Générateur de données
+│   ├── generate_data.py        # Générateur de données (SQL + CSV)
 │   ├── init-db.sh              # Script d'initialisation Neon
-│   └── validate_data.py        # Validation (8 vérifications)
+│   ├── validate_data.py        # Validation (8 vérifications)
+│   └── analyse.py              # Analyse pandas + matplotlib (5 figures)
 ├── docs/
-│   └── analyse.md              # Analyse et recommandations
+│   ├── analyse.md              # Analyse et recommandations
+│   └── figures/                # Graphiques générés par analyse.py
 ├── .env                        # Identifiants (ne pas commiter)
 ├── .env.example                # Template des variables
 └── README.md

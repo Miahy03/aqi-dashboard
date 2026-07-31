@@ -71,6 +71,11 @@ def generate_row(d, city, country, lat, lon, base, amp, noise):
         cat
     )
 
+CSV_COLUMNS = [
+    "city", "country", "latitude", "longitude", "date", "aqi",
+    "pm25", "pm10", "no2", "so2", "co", "o3", "category",
+]
+
 def main():
     rows = []
     current = START_DATE
@@ -97,9 +102,19 @@ def main():
             f.write(",\n".join(vals))
             f.write(";\n\n")
 
+    import os
+    data_dir = "/home/miahy/Donnee2-perso/data"
+    os.makedirs(data_dir, exist_ok=True)
+    csv_path = os.path.join(data_dir, "aqi_measurements.csv")
+    with open(csv_path, "w") as f:
+        f.write(",".join(CSV_COLUMNS) + "\n")
+        for r in rows:
+            f.write(",".join(str(v) for v in r) + "\n")
+
     print("Fichier généré : sql/seed_data.sql ({} lignes, {} enregistrements)".format(
         len(rows), len(rows)
     ))
+    print("Fichier généré : {}".format(csv_path))
 
 if __name__ == "__main__":
     main()
