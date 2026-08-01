@@ -70,7 +70,7 @@ def get_credentials():
             if line and not line.startswith("#") and "=" in line:
                 k, v = line.split("=", 1)
                 env[k.strip()] = v.strip()
-    return {
+    creds = {
         "host": env.get("POSTGRES_HOST", ""),
         "port": env.get("POSTGRES_PORT", "5432"),
         "db": env.get("POSTGRES_DB", ""),
@@ -78,6 +78,14 @@ def get_credentials():
         "password": env.get("POSTGRES_PASSWORD", ""),
         "sslmode": env.get("POSTGRES_SSL", "require"),
     }
+    if not creds["host"]:
+        st.error(
+            "Secrets Neon non configurés. Dans Streamlit Cloud : "
+            "Settings > Secrets, coller le contenu de `.streamlit/secrets.toml.example` "
+            "avec le vrai mot de passe."
+        )
+        st.stop()
+    return creds
 
 
 @st.cache_data(ttl=300, show_spinner=False)
