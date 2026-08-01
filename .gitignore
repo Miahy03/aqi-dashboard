@@ -29,3 +29,10 @@ pgdata/
 scripts/*_dashboard*.py
 scripts/*_design*.py
 scripts/*_metabase*.py
+
+# Local Metabase backup / data (not for Streamlit Cloud)
+backup-metabase-h2/
+metabase-data/
+
+# Streamlit secrets (local only)
+.streamlit/secrets.toml

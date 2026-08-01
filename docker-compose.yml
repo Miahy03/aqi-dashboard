@@ -9,4 +9,6 @@ services:
     environment:
       MB_SITE_NAME: "AQI Global Dashboard"
       MB_SITE_URL: http://localhost:3001
+    volumes:
+      - ./metabase-data:/metabase.db
     restart: unless-stopped
